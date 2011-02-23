@@ -2,3 +2,4 @@ TODO
 
 - make app loading really dynamic
 - deal with require problem in intra-libs
+- create rake task to publish static site and unpack gems in app
