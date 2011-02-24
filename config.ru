@@ -2,14 +2,15 @@ require 'lib/miso/static'
 require 'lib/miso/loader'
 require 'lib/miso/context'
 
-# This is the root of our app
 $static_root = "site"
 $app_root = "app"
 
-#make this configurable and dynamic
-Miso.load($app_root, "example").each do |name, app|
-  map '/'+$app_root+'/'+name do
-    run Miso::Context.new app, {:app_path => '/'+$app_root+'/'+name} 
+app_dir_list = ::Dir[$app_root+'/*'].reject{|o| not ::File.directory?(o)}
+app_dir_list.each do |app_folder|
+  puts app_folder
+  app = Miso.load app_folder
+  map '/'+app_folder do
+    run Miso::Context.new app, {:app_path => '/'+app_folder} 
   end
 end
 

@@ -8,7 +8,7 @@ module Miso
     
     def call(env)
       mainDir = Dir.getwd
-      Dir.chdir(mainDir+'/+'+@path)
+      Dir.chdir(mainDir+'/'+@path)
       rewritePath(env)
       status, headers, response = @app.call(env)
       Dir.chdir(mainDir)

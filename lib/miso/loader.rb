@@ -1,11 +1,11 @@
 module Miso
-  def load(app_root, app_path)
+  def load(app_path)
     currentDir = Dir.getwd
-    Dir.chdir(currentDir+'/'+app_root+'/'+app_path)
+    Dir.chdir(currentDir+'/'+app_path)
     rackup_code = ::File.read('config.ru') 
     app = eval("Rack::Builder.new {( #{rackup_code}\n )}.to_app")
     Dir.chdir(currentDir)
-    {app_path  => app}
+    app
   end
   
   module_function :load
