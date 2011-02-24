@@ -2,7 +2,8 @@ task :default => :deploy
 
 desc "deploy apps"
 task :deploy do
-  pwd = Dir.chdir('app')
+  pwd = Dir.getwd 
+  Dir.chdir('app')
   Dir['*.gem'].each do |gem|
     sh "gem unpack #{gem}"
     m = gem.match '(.*)-([\d+\.]*)\.gem'

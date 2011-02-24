@@ -2,6 +2,7 @@ TODO
 
 to version 0.1
 - cover with unit tests using rspec
+- create config file to set gems to install and static site location
 
 later
 - deal with require problem in intra-libs
