@@ -1,4 +1,8 @@
 TODO
 
-- create rake task to publish static site and unpack gems in app
+to version 0.1
+- cover with unit tests using rspec
+
+later
 - deal with require problem in intra-libs
+- miso project creator

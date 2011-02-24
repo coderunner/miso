@@ -1,3 +1,0 @@
-!#/usr/bin/env ruby
-
-puts 'miso script to create project structure + lib + rakefile'
