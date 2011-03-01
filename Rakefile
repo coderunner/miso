@@ -1,3 +1,5 @@
+require 'spec/rake/spectask'
+
 task :default => :deploy
 
 desc "install apps"
@@ -40,6 +42,6 @@ task :deploy => :install do
 end
 
 desc "Run miso tests"
-task :test do  
-  sh "bacon -I./lib:./test -a"
+Spec::Rake::SpecTask.new('test') do |t|
+  t.spec_files = FileList['spec/**/*spec.rb']
 end
