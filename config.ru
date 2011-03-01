@@ -1,6 +1,4 @@
-require 'lib/miso/static'
-require 'lib/miso/loader'
-require 'lib/miso/context'
+require 'lib/miso'
 
 $static_root = "site"
 $app_root = "app"
