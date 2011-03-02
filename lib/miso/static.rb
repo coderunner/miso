@@ -6,7 +6,7 @@ module Miso
       @root = static_site_path
     end
     def call(env)
-      path = Rack::Utils.unescape(env['REQUEST_PATH'])
+      path = Rack::Utils.unescape(env['PATH_INFO'])
         if path == "/"
           # Return the index
           env['REQUEST_PATH']="/index.html"
