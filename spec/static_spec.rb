@@ -16,7 +16,7 @@ describe Miso::StaticSite do
     code, header, body = app.call(initial_env)
     code.should  == 200
     body.instance_of? Rack::File
-    body.path.should match (/index.html/)     
+    body.path.should match(/index.html/)     
   end
   
   it 'should return 404.html is file do not exists' do
@@ -25,6 +25,6 @@ describe Miso::StaticSite do
       code, header, body = app.call(initial_env)
       code.should  == 404
       body.instance_of? Rack::File
-      body.path.should match (/404.html/)     
+      body.path.should match(/404.html/)     
     end
 end
