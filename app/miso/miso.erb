@@ -2,12 +2,16 @@
     <html xmlns="http://www.w3.org/1999/xhtml\" xml:lang="en" lang="en-us">
     <head>
        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-       <title>timerack</title>
+       <title>miso</title>
        <meta name="author" content="Felix Trepanier" />
     </head>
     <body>
       <center>
       <h2>running on miso version <%= $miso_version %></h2>
+      <h3>app running:</h3>
+      <% $miso_app_dir_list.each do |app_name|%>
+        <p><%= app_name.split('/')[-1] %></p>
+      <% end %>      
       </center> 
     </body> 
     </html>
