@@ -8,6 +8,7 @@ module Miso
     end
     def call(env)
       path = Rack::Utils.unescape(env['PATH_INFO'])
+      not_found = false
       if path == "/"
         # Return the index
         env['REQUEST_PATH']="/index.html"
@@ -17,8 +18,11 @@ module Miso
       end
       if !::File.exists?(@root+path) and ::File.exists?(@root+'/'+@not_found)
         env['PATH_INFO']=@not_found
+        not_found = true
       end
-      Rack::Directory.new(@root).call(env)
+      code, headers, body = Rack::Directory.new(@root).call(env)
+      code = 404 if not_found
+      [code, headers, body]
     end
   end  
 end

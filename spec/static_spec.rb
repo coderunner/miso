@@ -23,7 +23,7 @@ describe Miso::StaticSite do
       initial_env = {'PATH_INFO' => '/dummy.dumb'}
       app = Miso::StaticSite.new 'spec' 
       code, header, body = app.call(initial_env)
-      code.should  == 200
+      code.should  == 404
       body.instance_of? Rack::File
       body.path.should match (/404.html/)     
     end
