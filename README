@@ -1,8 +1,8 @@
 TODO
 
 to version 0.1
-- cover with unit tests using rspec
-- create config file to set gems to install and static site location
+- create gemspec
+- create target in script for new miso project
 
 later
 - deal with require problem in intra-libs
