@@ -1,4 +1,4 @@
-require 'lib/miso'
+require ::File.expand_path(::File.dirname(__FILE__) + '/lib/miso')
 
 $static_root = "site"
 $app_root = "app"
