@@ -1,9 +1,9 @@
 module Miso
   class Context
+    @@REWRITE= ['REQUEST_PATH', 'PATH_INFO', 'REQUEST_URI']
     def initialize (app, option={})
       @app = app
       @path = option[:app_path]
-      @rewrite = ['REQUEST_PATH', 'PATH_INFO', 'REQUEST_URI']
     end
     
     def call(env)
@@ -16,7 +16,7 @@ module Miso
     end
     
     def rewritePath(env)
-      @rewrite.each do |key|
+      @@REWRITE.each do |key|
         env[key] = env[key].gsub(@path, '')
       end
     end

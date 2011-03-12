@@ -1,8 +1,5 @@
-require 'spec/rake/spectask'
+require 'rspec/core/rake_task'
 
-task :default => :test
+RSpec::Core::RakeTask.new(:spec)
 
-desc "Run miso tests"
-Spec::Rake::SpecTask.new('test') do |t|
-  t.spec_files = FileList['spec/**/*spec.rb']
-end
+task :default => :spec
