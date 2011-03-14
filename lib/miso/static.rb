@@ -2,27 +2,35 @@ require 'rack'
 
 module Miso
   class StaticSite
+    @@NOT_FOUND_PAGE = '404.html'
+    
     def initialize(static_site_path)
       @root = static_site_path
-      @not_found = '404.html'
+      @static_page_server = Rack::Directory.new(@root)
     end
+    
     def call(env)
       path = Rack::Utils.unescape(env['PATH_INFO'])
       not_found = false
+      
+      #if / then route to index.html
       if path == "/"
         # Return the index
-        env['REQUEST_PATH']="/index.html"
         env['PATH_INFO']="/index.html"
-        env['REQUEST_URI']="/index.html"
         path = path+'index.html'
       end
-      if !::File.exists?(@root+path) and ::File.exists?(@root+'/'+@not_found)
-        env['PATH_INFO']=@not_found
+      
+      #if page does not exists then route to 404.html
+      if !::File.exists?(@root+path) and ::File.exists?(@root+'/'+@@NOT_FOUND_PAGE)
+        env['PATH_INFO']=@@NOT_FOUND_PAGE
         not_found = true
       end
-      code, headers, body = Rack::Directory.new(@root).call(env)
-      code = 404 if not_found
-      [code, headers, body]
+      
+      #call Directory to resolve
+      code, headers, body = @static_page_server.call(env)
+      
+      #override to 404 if page not found
+      [not_found ? 404 : code, headers, body]
     end
   end  
 end
