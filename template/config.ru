@@ -1,9 +1,9 @@
-require ::File.expand_path(::File.dirname(__FILE__) + '/lib/miso')
+require 'miso'
 
-$static_root = "site"
-$app_root = "app"
+$MISO_STATIC_ROOT = "_site"
+$MISO_APP_ROOT = "_app"
 
-app_dir_list = ::Dir[$app_root+'/*'].reject{|o| not ::File.directory?(o)}
+app_dir_list = ::Dir[$MISO_APP_ROOT+'/*'].reject{|o| not ::File.directory?(o)}
 app_dir_list.each do |app_folder|
   app = Miso.load app_folder
   map '/'+app_folder do
@@ -12,5 +12,5 @@ app_dir_list.each do |app_folder|
 end
 
 map '/' do 
-  run Miso::StaticSite.new $static_root
+  run Miso::StaticSite.new $MISO_STATIC_ROOT
 end
