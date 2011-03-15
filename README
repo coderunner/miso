@@ -1,7 +1,7 @@
 TODO
 
 to version 0.1
-- create gemspec
+- change app path _app/miso -> miso
 - create target in script for new miso project
 
 later
