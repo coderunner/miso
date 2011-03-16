@@ -1,8 +1,9 @@
 require 'erb'
+require 'miso'
 
 $miso_app_folder = ::File.expand_path(::File.dirname(__FILE__))+'/..'
 $miso_app_dir_list = ::Dir[$miso_app_folder+'/*'].reject{|o| not ::File.directory?(o)}
-$miso_version = '0.1'
+$miso_version = Miso::VERSION
 
 $miso_page = ''    
 ::File.open("miso.erb", "r") do |infile|

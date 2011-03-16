@@ -7,7 +7,7 @@
     </head>
     <body>
       <center>
-      <h2>running on miso version <%= $miso_version %></h2>
+      <h2>running on miso version <%= Miso::VERSION %></h2>
       <h3>app running:</h3>
       <% $miso_app_dir_list.each do |app_name|%>
         <p><%= app_name.split('/')[-1] %></p>
