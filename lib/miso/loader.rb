@@ -1,4 +1,5 @@
 module Miso
+  # Load a Rack application from a config.ru file.
   def load(app_path)
     currentDir = Dir.getwd
     Dir.chdir(currentDir+'/'+app_path)

@@ -1,4 +1,6 @@
 module Miso
+  #Rack middleware that intercept request to the Rack application
+  #rewrite the path so that is seems to target the base URL.
   class Context
     @@REWRITE= ['REQUEST_PATH', 'PATH_INFO', 'REQUEST_URI']
     def initialize (app, option={})
@@ -15,6 +17,7 @@ module Miso
       [status, headers, response]
     end
     
+    #Rewrite the path in the original request.
     def rewritePath(env)
       @@REWRITE.each do |key|
         env[key] = env[key].gsub(@path, '')
