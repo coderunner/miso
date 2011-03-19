@@ -1,41 +1,64 @@
 #!/usr/bin/env ruby
 
-def install()
-  if File.exists?("miso.soup") then
-    puts 'file exists'
-    File.open("miso.soup") do |file|
-      puts 'open'
-      file.each_line do |line|
-        puts line
-        if /^static/.match(line) then
-          static_path = line.split(':')[1].strip
-          FileUtils.rm_rf('./site/*')
-          puts "cp #{static_path} site/"
-          FileUtils.cp_r(static_path, 'site/')
-        elsif /^gem/.match(line) then
-          gem = line.split(':')[1].strip
-          puts "cp #{gem} app/"
-          FileUtils.cp(gem, 'app/')
+require 'getoptlong'
+
+require File.expand_path('../lib/miso/commands', File.dirname(__FILE__))
+require File.expand_path('../lib/miso/version', File.dirname(__FILE__))
+
+module Miso
+  class Cli
+    def self.usage
+      puts <<EOF
+USAGE: #{File.basename($0)} [GLOBAL OPTIONS] <command> [COMMAND OPTIONS]
+
+GLOBAL OPTIONS
+    --help, -h            Display this message.
+    --version, -v         Display version number.
+
+COMMANDS
+    new <path>            Create a new Miso project.
+EOF
+exit 0
+    end
+
+    def self.version
+      puts "Miso #{Miso::VERSION}"
+      exit 0
+    end
+
+    def self.parse_command_line
+      opts = GetoptLong.new(
+        ['--help', '-h', GetoptLong::NO_ARGUMENT],
+        ['--version', '-v', GetoptLong::NO_ARGUMENT]
+      )
+      options = {}
+      opts.each do |opt, arg|
+        case opt 
+        when '--help'
+          usage
+        when '--version'
+          version
+        else
+          options[opt.sub(/^--/, '')] = arg
         end
       end
+      options
+    end
+
+    def self.main(options)
+      command = ARGV.shift
+      command.nil? && usage
+      case command
+        when 'new'
+          Miso::Commands::New.new(ARGV[0], options).execute
+        else
+          usage
+      end
+    rescue StandardError => e
+      $stderr.puts "ERROR: #{e}"
+      usage
     end
   end
 end
 
-def publish()
-  pwd = Dir.getwd 
-  Dir.chdir('app')
-  Dir['*.gem'].each do |gem|
-    sh "gem unpack #{gem}"
-    m = gem.match '(.*)-([\d+\.]*)\.gem'
-    if File.exists?(m[1]) then
-      FileUtils.rm_rf(m[1])
-    end
-    gem_folder = gem.sub('.gem','')
-    sh "mv #{gem_folder} #{m[1]}"
-  end
-  Dir.chdir(pwd)  
-end
-
-install
-publish
+Miso::Cli.main(Miso::Cli.parse_command_line)
