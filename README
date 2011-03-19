@@ -1,7 +1,2 @@
 Miso is a Rack application aggregator.
 It allows running multiple Rack applications and a static site within the same server instance.
-
-TODO
-
-to version 0.1
-- create target in script for new miso project
