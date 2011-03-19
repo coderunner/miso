@@ -1,7 +1,7 @@
 module Miso
   #Rack middleware that intercept request to the Rack application
   #rewrite the path so that is seems to target the base URL.
-  class Context
+  class Rewrite
     #Request env variable to rewrite.
     @@REWRITE= ['REQUEST_PATH', 'PATH_INFO', 'REQUEST_URI']
     
@@ -13,13 +13,12 @@ module Miso
     
     #Execute request.
     def call(env)
-      mainDir = Dir.getwd
-      Dir.chdir(mainDir+'/'+@path)
       rewritePath(env)
       status, headers, response = @app.call(env)
-      Dir.chdir(mainDir)
       [status, headers, response]
     end
+    
+    private
     
     #Rewrite the path in the original request.
     def rewritePath(env)
