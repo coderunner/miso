@@ -3,7 +3,7 @@ $:.push File.expand_path("../lib", __FILE__)
 require "miso/version"
 
 Gem::Specification.new do |s|
-  s.name        = "miso"
+  s.name        = "misosoup"
   s.version     = Miso::VERSION
   s.platform    = Gem::Platform::RUBY
   s.authors     = ["Felix Trepanier"]
@@ -11,7 +11,7 @@ Gem::Specification.new do |s|
   s.homepage    = "http://side-experiment.com"
   s.summary     = %q{Rack application aggregator}
   s.description = <<-EOF
-Miso is a Rack application which can server any number of sub-Rack applications
+MisoSoup is a Rack application which can server any number of sub-Rack applications
 and a static web site.
 EOF
 
