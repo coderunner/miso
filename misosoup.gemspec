@@ -15,9 +15,9 @@ MisoSoup is a Rack application which can server any number of sub-Rack applicati
 and a static web site.
 EOF
 
-  s.files         = `git ls-files`.split("\n")
-  s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
-  s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
+  s.files 		  = Dir['lib/**/*', 'bin/*', 'spec/**/*', 'template/**/*', 'Rakefile', 'Gemfile', 'Gemfile.lock']
+  s.test_files    = Dir['spec/**/*']
+  s.executables   = ['miso']
   s.require_paths = ["lib"]
 
   s.add_dependency('rack', '~> 1.2.0')
