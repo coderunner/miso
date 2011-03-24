@@ -34,6 +34,7 @@ module Miso
         make_directories
         templates = {
           'config.ru' => "#{@path}/config.ru",
+          'Gemfile' => "#{@path}/Gemfile",
           '_app/miso/config.ru' => "#{@path}/_app/miso/config.ru",
           '_app/miso/miso.erb' => "#{@path}/_app/miso/miso.erb",
           '_site/index.html' => "#{@path}/_site/index.html"
